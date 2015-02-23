@@ -1,0 +1,6 @@
+image: vinelab/redis
+name: redis
+host: localhost
+port: 6379
+ram: 256MB
+ambassador: false

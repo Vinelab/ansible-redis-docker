@@ -1,0 +1,26 @@
+---
+-   name: launch a Redis instance
+    docker:
+        image: "{{image}}"
+        name: "{{name}}"
+        privileged: True
+        expose: 6379
+        memory_limit: "{{ram}}"
+    tags:
+        - launch
+        - redis
+    when: not ambassador
+
+-   name: launch an ambassador Redis  instance
+    docker:
+        image: svendowideit/ambassador
+        name: "{{name}}"
+        expose: 6379
+        ports: "{{port}}:6379"
+        env:
+            - "REDIS_PORT_6379_TCP=tcp://{{host}}:6379"
+        memory_limit: "{{ram}}"
+    tags:
+        - launch
+        - redis
+    when: ambassador
